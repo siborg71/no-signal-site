@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oswald:wght@700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #111;
+  --border: #2a2a2a;
+  --text: #d4cfbf;
+  --dim: #6b6659;
+  --accent: #c8ff00;
+  --red: #ff2b2b;
+  --mono: 'Share Tech Mono', monospace;
+  --display: 'Oswald', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Grain overlay */
+.noise {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ── HEADER ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+}
+
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.band-name {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(200,255,0,0.4);
+}
+
+nav {
+  display: flex;
+  gap: 2rem;
+}
+
+nav a {
+  color: var(--dim);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  transition: color 0.15s;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    ),
+    var(--bg);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(200,255,0,0.04) 0%, transparent 70%);
+}
+
+.hero-text {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text h2 {
+  font-family: var(--display);
+  font-size: clamp(3rem, 10vw, 7rem);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: #fff;
+  text-shadow:
+    2px 2px 0 var(--red),
+    -1px -1px 0 rgba(0,100,255,0.4);
+  margin: 1rem 0;
+}
+
+.static-line {
+  display: block;
+  color: var(--dim);
+  letter-spacing: 0.3em;
+  font-size: 0.9rem;
+}
+
+/* ── SECTIONS ── */
+.section {
+  padding: 5rem 2rem;
+}
+
+.section-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: 2.5rem;
+  font-weight: normal;
+}
+
+/* ── ABOUT ── */
+.about-content p {
+  max-width: 620px;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.member {
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  color: var(--dim);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  text-align: center;
+  color: var(--border);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+}
+
+/* ── SHOWS ── */
+.shows-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.shows-table th {
+  text-align: left;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--dim);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.shows-table td {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.shows-table tr:hover td {
+  color: var(--accent);
+}
+
+.ticket-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.ticket-link:hover {
+  opacity: 1;
+}
+
+/* ── CONTACT ── */
+.contact-intro {
+  color: var(--dim);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.contact-form {
+  max-width: 560px;
+}
+
+.field {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--dim);
+}
+
+.field input,
+.field textarea,
+.field select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  padding: 0.65rem 0.75rem;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  appearance: none;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--accent);
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.submit-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.submit-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.form-note {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--dim);
+  min-height: 1.2em;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--dim);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.socials a {
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.socials a:hover {
+  color: var(--accent);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .header-inner {
+    flex-direction: column;
+    height: auto;
+    padding: 0.75rem 0;
+    gap: 0.5rem;
+  }
+
+  nav {
+    gap: 1.2rem;
+  }
+
+  .shows-table th:last-child,
+  .shows-table td:last-child {
+    display: none;
+  }
+}

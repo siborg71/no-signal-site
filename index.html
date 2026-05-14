@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NO SIGNAL</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="noise"></div>
+
+  <header>
+    <div class="header-inner">
+      <h1 class="band-name">NO SIGNAL</h1>
+      <nav>
+        <a href="#about">ABOUT</a>
+        <a href="#shows">SHOWS</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <span class="static-line">///////////</span>
+      <h2>TRANSMISSION<br/>INTERRUPTED</h2>
+      <span class="static-line">///////////</span>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section-inner">
+      <h3 class="section-title">// ABOUT</h3>
+      <div class="about-content">
+        <p>
+          NO SIGNAL is a four-piece from [your city] playing loud,
+          damaged music for people who've given up on reception.
+          Formed in a basement, refined in a van, performed anywhere
+          that'll have us.
+        </p>
+        <p>
+          Somewhere between static and feedback, noise and song.
+          If you can hear us, it's already too late.
+        </p>
+        <div class="members">
+          <div class="member">[ VOCALS ]</div>
+          <div class="member">[ GUITAR ]</div>
+          <div class="member">[ BASS ]</div>
+          <div class="member">[ DRUMS ]</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider">— — — — — — — — — — — — — — — — — — — —</div>
+
+  <section id="shows" class="section">
+    <div class="section-inner">
+      <h3 class="section-title">// SHOWS</h3>
+      <table class="shows-table">
+        <thead>
+          <tr>
+            <th>DATE</th>
+            <th>VENUE</th>
+            <th>CITY</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>06.14</td>
+            <td>The Bunker</td>
+            <td>Your City</td>
+            <td><a href="#" class="ticket-link">TIX →</a></td>
+          </tr>
+          <tr>
+            <td>07.04</td>
+            <td>Static Room</td>
+            <td>Nearby Town</td>
+            <td><a href="#" class="ticket-link">TIX →</a></td>
+          </tr>
+          <tr>
+            <td>07.19</td>
+            <td>Dead Channel</td>
+            <td>Another City</td>
+            <td><a href="#" class="ticket-link">TIX →</a></td>
+          </tr>
+          <tr>
+            <td>08.02</td>
+            <td>The Void</td>
+            <td>Last Stop</td>
+            <td><a href="#" class="ticket-link">TIX →</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider">— — — — — — — — — — — — — — — — — — — —</div>
+
+  <section id="contact" class="section">
+    <div class="section-inner">
+      <h3 class="section-title">// CONTACT</h3>
+      <p class="contact-intro">Booking, press, or just noise — reach out below.</p>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="field">
+          <label for="name">NAME</label>
+          <input type="text" id="name" name="name" placeholder="your name" required />
+        </div>
+        <div class="field">
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="field">
+          <label for="subject">SUBJECT</label>
+          <select id="subject" name="subject">
+            <option value="booking">Booking</option>
+            <option value="press">Press</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">MESSAGE</label>
+          <textarea id="message" name="message" placeholder="say something" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">TRANSMIT →</button>
+        <p class="form-note" id="form-note"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>© NO SIGNAL — ALL RIGHTS RESERVED — STAY DISCONNECTED</p>
+    <div class="socials">
+      <a href="#">INSTAGRAM</a>
+      <a href="#">BANDCAMP</a>
+      <a href="#">SPOTIFY</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
