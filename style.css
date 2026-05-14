@@ -63,12 +63,10 @@ header {
   height: 56px;
 }
 
-.band-name {
-  font-family: var(--display);
-  font-size: 1.4rem;
-  letter-spacing: 0.3em;
-  color: #fff;
-  text-shadow: 0 0 8px var(--accent-bright), 0 0 20px var(--glow);
+.header-logo {
+  height: 40px;
+  width: auto;
+  display: block;
 }
 
 nav {
@@ -122,18 +120,20 @@ nav a:hover {
   z-index: 1;
 }
 
-.hero-text h2 {
-  font-family: var(--display);
-  font-size: clamp(3rem, 10vw, 7rem);
-  letter-spacing: 0.1em;
-  line-height: 1;
-  color: #fff;
-  text-shadow:
-    0 0 10px #fff,
-    2px 2px 0 var(--accent),
-    -2px -2px 0 var(--accent),
-    0 0 40px var(--glow);
-  margin: 1rem 0;
+
+.hero-logo {
+  width: min(520px, 80vw);
+  height: auto;
+  display: block;
+  margin: 0 auto 1.5rem;
+}
+
+.hero-tagline {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+  margin: 0.5rem 0;
 }
 
 .static-line {
