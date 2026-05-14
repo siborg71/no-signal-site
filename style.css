@@ -7,13 +7,14 @@
 }
 
 :root {
-  --bg: #0a0a0a;
-  --surface: #111;
-  --border: #2a2a2a;
-  --text: #d4cfbf;
-  --dim: #6b6659;
-  --accent: #c8ff00;
-  --red: #ff2b2b;
+  --bg: #000005;
+  --surface: #0a0a12;
+  --border: #1a1a2e;
+  --text: #dddde8;
+  --dim: #5a5a7a;
+  --accent: #3322ee;
+  --accent-bright: #6655ff;
+  --glow: rgba(51, 34, 238, 0.5);
   --mono: 'Share Tech Mono', monospace;
   --display: 'Oswald', sans-serif;
 }
@@ -66,8 +67,8 @@ header {
   font-family: var(--display);
   font-size: 1.4rem;
   letter-spacing: 0.3em;
-  color: var(--accent);
-  text-shadow: 0 0 12px rgba(200,255,0,0.4);
+  color: #fff;
+  text-shadow: 0 0 8px var(--accent-bright), 0 0 20px var(--glow);
 }
 
 nav {
@@ -84,7 +85,8 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--accent);
+  color: #fff;
+  text-shadow: 0 0 8px var(--glow);
 }
 
 /* ── HERO ── */
@@ -112,7 +114,7 @@ nav a:hover {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 60%, rgba(200,255,0,0.04) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 60%, rgba(51,34,238,0.08) 0%, transparent 70%);
 }
 
 .hero-text {
@@ -127,8 +129,10 @@ nav a:hover {
   line-height: 1;
   color: #fff;
   text-shadow:
-    2px 2px 0 var(--red),
-    -1px -1px 0 rgba(0,100,255,0.4);
+    0 0 10px #fff,
+    2px 2px 0 var(--accent),
+    -2px -2px 0 var(--accent),
+    0 0 40px var(--glow);
   margin: 1rem 0;
 }
 
@@ -153,9 +157,10 @@ nav a:hover {
   font-family: var(--mono);
   font-size: 0.8rem;
   letter-spacing: 0.3em;
-  color: var(--accent);
+  color: var(--accent-bright);
   margin-bottom: 2.5rem;
   font-weight: normal;
+  text-shadow: 0 0 8px var(--glow);
 }
 
 /* ── ABOUT ── */
@@ -212,11 +217,12 @@ nav a:hover {
 }
 
 .shows-table tr:hover td {
-  color: var(--accent);
+  color: #fff;
+  text-shadow: 0 0 6px var(--glow);
 }
 
 .ticket-link {
-  color: var(--accent);
+  color: var(--accent-bright);
   text-decoration: none;
   font-size: 0.75rem;
   letter-spacing: 0.1em;
@@ -270,7 +276,8 @@ nav a:hover {
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
-  border-color: var(--accent);
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 8px var(--glow);
 }
 
 .field textarea {
@@ -279,19 +286,20 @@ nav a:hover {
 
 .submit-btn {
   background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--accent-bright);
+  color: #fff;
   font-family: var(--mono);
   font-size: 0.8rem;
   letter-spacing: 0.25em;
   padding: 0.75rem 2rem;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, box-shadow 0.15s;
+  text-shadow: 0 0 6px var(--glow);
 }
 
 .submit-btn:hover {
   background: var(--accent);
-  color: var(--bg);
+  box-shadow: 0 0 16px var(--glow);
 }
 
 .form-note {
@@ -325,7 +333,8 @@ footer {
 }
 
 .socials a:hover {
-  color: var(--accent);
+  color: #fff;
+  text-shadow: 0 0 8px var(--glow);
 }
 
 /* ── RESPONSIVE ── */
