@@ -175,16 +175,38 @@ nav a:hover {
 .members {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 2.5rem;
 }
 
 .member {
   border: 1px solid var(--border);
-  padding: 0.5rem 1rem;
-  color: var(--dim);
-  font-size: 0.75rem;
+  width: 180px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.member-photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  filter: grayscale(20%) contrast(1.05);
+}
+
+.member-name {
+  padding: 0.6rem 0.75rem 0.1rem;
+  font-size: 0.8rem;
   letter-spacing: 0.2em;
+  color: #fff;
+}
+
+.member-role {
+  padding: 0 0.75rem 0.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-bright);
 }
 
 /* ── DIVIDER ── */
