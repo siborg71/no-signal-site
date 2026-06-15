@@ -96,7 +96,7 @@ nav a:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('images/banner.jpg') center center / cover no-repeat;
+  background: url('images/Banner.jpg') center center / cover no-repeat;
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
