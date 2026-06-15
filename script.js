@@ -4,15 +4,13 @@ async function openSetlist() {
 
   modal.classList.add('open');
 
-  if (list.children.length === 0) {
-    try {
-      const res = await fetch('setlist.txt');
-      const text = await res.text();
-      const songs = text.trim().split('\n').filter(l => l.trim());
-      list.innerHTML = songs.map(s => `<li>${s}</li>`).join('');
-    } catch {
-      list.innerHTML = '<li>// could not load set list</li>';
-    }
+  try {
+    const res = await fetch('setlist.txt', { cache: 'no-cache' });
+    const text = await res.text();
+    const songs = text.trim().split('\n').filter(l => l.trim());
+    list.innerHTML = songs.map(s => `<li>${s}</li>`).join('');
+  } catch {
+    list.innerHTML = '<li>// could not load set list</li>';
   }
 }
 
