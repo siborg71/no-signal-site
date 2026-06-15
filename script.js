@@ -1,3 +1,31 @@
+async function openSetlist() {
+  const modal = document.getElementById('setlist-modal');
+  const list = document.getElementById('setlist-content');
+
+  modal.classList.add('open');
+
+  if (list.children.length === 0) {
+    try {
+      const res = await fetch('setlist.txt');
+      const text = await res.text();
+      const songs = text.trim().split('\n').filter(l => l.trim());
+      list.innerHTML = songs.map(s => `<li>${s}</li>`).join('');
+    } catch {
+      list.innerHTML = '<li>// could not load set list</li>';
+    }
+  }
+}
+
+function closeSetlist(e) {
+  if (!e || e.target === document.getElementById('setlist-modal')) {
+    document.getElementById('setlist-modal').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeSetlist();
+});
+
 async function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;

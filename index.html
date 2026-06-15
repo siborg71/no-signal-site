@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NO SIGNAL</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
@@ -50,6 +51,8 @@
           anywhere else that appreciates a band that turns up loud and
           delivers the goods.
         </p>
+        <button class="setlist-btn" onclick="openSetlist()">// VIEW SAMPLE SET LIST</button>
+
         <div class="members">
           <div class="member">
             <img src="images/jason.png" alt="Jason" class="member-photo" />
@@ -156,10 +159,20 @@
   <footer>
     <p>© NO SIGNAL — ALL RIGHTS RESERVED — STAY DISCONNECTED</p>
     <div class="socials">
-      <a href="https://www.facebook.com/profile.php?id=61578885463673" target="_blank" rel="noopener">FACEBOOK</a>
-      <a href="https://www.instagram.com/no_signal_bribie" target="_blank" rel="noopener">INSTAGRAM</a>
+      <a href="https://www.facebook.com/profile.php?id=61578885463673" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://www.instagram.com/no_signal_bribie" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
     </div>
   </footer>
+
+  <div class="modal-overlay" id="setlist-modal" onclick="closeSetlist(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="section-title">// SET LIST</span>
+        <button class="modal-close" onclick="closeSetlist()">&times;</button>
+      </div>
+      <ul class="setlist" id="setlist-content"></ul>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
