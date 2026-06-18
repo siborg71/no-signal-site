@@ -445,6 +445,15 @@ footer {
 }
 
 /* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .hero {
+    min-height: 0;
+    aspect-ratio: 1942 / 809;
+    background-size: contain;
+    background-color: var(--bg);
+  }
+}
+
 @media (max-width: 600px) {
   .header-inner {
     flex-direction: column;
