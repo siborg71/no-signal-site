@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No Signal — EPK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#050409;
+    --panel:#0F0E18;
+    --panel-2:#171625;
+    --blue:#3322EE;
+    --blue-bright:#6655FF;
+    --glow:rgba(51,34,238,.5);
+    --magenta:#E23E7A;
+    --paper:#FFFFFF;
+    --muted:#82829E;
+    --line:rgba(255,255,255,0.08);
+    --line-strong:rgba(255,255,255,0.16);
+    --display:'Anton',Impact,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --mono:'Space Mono',ui-monospace,monospace;
+    --maxw:960px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:64px; /* room for mobile contact bar */
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+
+  /* ---- shared type ---- */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--blue-bright);
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:16px;
+  }
+  .eyebrow::before{
+    content:"";
+    display:inline-block;
+    width:22px;height:12px;
+    background:
+      linear-gradient(var(--blue-bright),var(--blue-bright)) 0 100%/3px 40% no-repeat,
+      linear-gradient(var(--blue-bright),var(--blue-bright)) 6px 100%/3px 62% no-repeat,
+      linear-gradient(var(--blue-bright),var(--blue-bright)) 12px 100%/3px 82% no-repeat,
+      linear-gradient(var(--blue-bright),var(--blue-bright)) 18px 100%/3px 100% no-repeat;
+    opacity:.9;
+  }
+
+  h2.section-title{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(2rem,5.5vw,3.1rem);
+    line-height:.98;
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    margin-bottom:22px;
+  }
+
+  section{padding:64px 0;border-top:1px solid var(--line);}
+
+  /* ---- placeholder slots (the content map) ---- */
+  .slot{
+    position:relative;
+    border:1.5px dashed var(--line-strong);
+    border-radius:10px;
+    background:
+      repeating-linear-gradient(45deg,rgba(255,255,255,.012) 0 12px,transparent 12px 24px),
+      var(--panel);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    padding:28px 22px;
+    gap:10px;
+    color:var(--muted);
+  }
+  .slot .glyph{color:var(--blue-bright);opacity:.85;}
+  .slot .slot-label{
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--paper);
+  }
+  .slot .slot-spec{
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:var(--muted);
+    max-width:34ch;
+  }
+  .slot.sync-critical{border-color:var(--magenta);}
+  .slot.sync-critical .glyph{color:var(--magenta);}
+  .tag{
+    font-family:var(--mono);
+    font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+    padding:3px 8px;border-radius:999px;
+    position:absolute;top:12px;right:12px;
+  }
+  .tag.sc{background:rgba(226,62,122,.14);color:var(--magenta);border:1px solid rgba(226,62,122,.4);}
+  .tag.fl{background:rgba(102,85,255,.14);color:var(--blue-bright);border:1px solid rgba(102,85,255,.4);}
+
+  .video-slot{aspect-ratio:16/9;}
+  .photo-slot{aspect-ratio:4/3;}
+  .photo-frame{position:relative;border-radius:10px;overflow:hidden;background:var(--panel);}
+  .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ---- HERO ---- */
+  .hero{
+    position:relative;
+    border-top:none;
+    padding:0;
+    min-height:82vh;
+    display:flex;align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-media{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(120% 90% at 70% 0%,rgba(226,62,122,.16),transparent 55%),
+      radial-gradient(120% 90% at 15% 30%,rgba(242,169,59,.14),transparent 55%),
+      var(--panel);
+    display:flex;align-items:center;justify-content:center;
+  }
+  /* scanline / lost-signal texture — the name motif */
+  .hero-media::after{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(to bottom,rgba(255,255,255,.035) 0 1px,transparent 1px 4px);
+    mix-blend-mode:overlay;pointer-events:none;
+    animation:drift 8s linear infinite;
+  }
+  @keyframes drift{from{background-position:0 0;}to{background-position:0 40px;}}
+  .hero-media .slot{
+    border:none;background:none;
+  }
+  .hero-media .glyph{width:56px;height:56px;}
+  .hero-video{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+  }
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(to top,var(--ink) 4%,rgba(12,11,16,.5) 40%,transparent 75%);
+    pointer-events:none;
+  }
+  .hero-content{position:relative;z-index:2;width:100%;padding-bottom:52px;}
+  .hero-name{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(4.2rem,17vw,9.5rem);
+    line-height:.82;
+    text-transform:uppercase;
+    letter-spacing:.005em;
+    color:var(--paper);
+    text-shadow:2px 2px 0 var(--blue),-2px -2px 0 var(--blue),0 0 30px var(--glow);
+  }
+  .hero-name .sig{text-shadow:2px 2px 0 var(--blue-bright),-2px -2px 0 var(--blue-bright),0 0 44px var(--glow);}
+  .hero-hook{
+    font-size:clamp(1.05rem,2.6vw,1.4rem);
+    color:var(--paper);
+    max-width:30ch;
+    margin:20px 0 26px;
+    font-weight:500;
+  }
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;}
+  .btn{
+    font-family:var(--mono);
+    font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
+    text-decoration:none;
+    padding:14px 22px;border-radius:8px;
+    display:inline-flex;align-items:center;gap:9px;
+    transition:transform .12s ease,background .2s ease,border-color .2s ease;
+  }
+  .btn-primary{background:var(--blue);color:#fff;font-weight:700;}
+  .btn-primary:hover{transform:translateY(-2px);background:var(--blue-bright);box-shadow:0 0 16px var(--glow);}
+  .btn-ghost{border:1px solid var(--line-strong);color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--blue-bright);color:var(--blue-bright);}
+
+  /* ---- who we are ---- */
+  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;}
+  .lede{font-size:1.15rem;color:var(--paper);}
+  .lede + p{color:var(--muted);margin-top:14px;}
+
+  /* ---- setlist ---- */
+  .setlist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .set-col h3{
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--blue-bright);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line);
+  }
+  .set-col ul{list-style:none;}
+  .set-col li{padding:5px 0;color:var(--paper);font-size:.96rem;}
+  .set-col li span{color:var(--muted);font-size:.82rem;}
+  .placeholder-note{color:var(--muted);font-family:var(--mono);font-size:.72rem;margin-top:8px;}
+
+  /* ---- gallery ---- */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .gallery .photo-slot{aspect-ratio:1/1;}
+  .gallery .tall{grid-row:span 2;aspect-ratio:auto;}
+  .gallery .wide{grid-column:span 2;aspect-ratio:auto;}
+
+  /* ---- logistics ---- */
+  .spec-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .spec-item{background:var(--panel);padding:22px;}
+  .spec-item .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .spec-item .v{font-size:1.05rem;color:var(--paper);}
+  .spec-item .v strong{color:var(--blue-bright);}
+
+  /* ---- social proof ---- */
+  .venues{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+  .venue-chip{
+    border:1px solid var(--line-strong);border-radius:8px;
+    padding:14px 20px;font-family:var(--mono);font-size:.8rem;color:var(--muted);
+    letter-spacing:.04em;
+  }
+  blockquote{
+    border-left:3px solid var(--blue-bright);
+    padding:6px 0 6px 22px;
+    font-size:1.3rem;line-height:1.4;color:var(--paper);
+    max-width:44ch;
+  }
+  blockquote cite{display:block;font-style:normal;font-family:var(--mono);font-size:.76rem;color:var(--muted);margin-top:12px;letter-spacing:.08em;}
+
+  /* ---- follow row ---- */
+  .follow-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:32px;padding-top:26px;border-top:1px solid var(--line);}
+  .follow-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:2px;}
+  .follow-link{
+    font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;
+    text-decoration:none;color:var(--paper);
+    border:1px solid var(--line-strong);border-radius:8px;
+    padding:10px 16px;transition:border-color .2s ease,color .2s ease;
+  }
+  .follow-link:hover{border-color:var(--blue-bright);color:var(--blue-bright);}
+  .follow-link.is-soon{color:var(--muted);}
+  .follow-link.is-soon .soon-tag{color:var(--muted);font-size:.68rem;margin-left:6px;opacity:.8;}
+
+  /* ---- rates ---- */
+  .rates-box{
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:34px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;
+  }
+  .rates-box .big{font-family:var(--display);font-size:2.4rem;text-transform:uppercase;line-height:1;}
+  .rates-box .sub{color:var(--muted);font-size:.95rem;margin-top:8px;max-width:40ch;}
+
+  /* ---- contact ---- */
+  .contact-final{text-align:center;}
+  .contact-final .btn{font-size:.9rem;}
+  .contact-lines{font-family:var(--mono);color:var(--muted);margin-top:20px;font-size:.85rem;line-height:2;}
+  .contact-lines a{color:var(--paper);text-decoration:none;}
+  .contact-lines a:hover{color:var(--blue-bright);}
+
+  /* ---- downloads ---- */
+  .downloads{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .dl-card{
+    border:1px solid var(--line);border-radius:10px;background:var(--panel);
+    padding:24px;display:flex;align-items:center;gap:16px;
+    text-decoration:none;color:var(--paper);transition:border-color .2s ease;
+  }
+  .dl-card:hover{border-color:var(--blue-bright);}
+  .dl-card .glyph{color:var(--blue-bright);flex-shrink:0;}
+  .dl-card .t{font-weight:600;}
+  .dl-card .d{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:3px;}
+
+  footer{padding:40px 0 24px;border-top:1px solid var(--line);text-align:center;}
+  footer .mark{font-family:var(--display);font-size:1.4rem;text-transform:uppercase;letter-spacing:.02em;color:var(--paper);text-shadow:1px 1px 0 var(--blue),-1px -1px 0 var(--blue);}
+  footer .mark .sig{text-shadow:1px 1px 0 var(--blue-bright),-1px -1px 0 var(--blue-bright);}
+  footer small{display:block;color:var(--muted);font-family:var(--mono);font-size:.7rem;margin-top:10px;letter-spacing:.08em;}
+
+  /* ---- sticky mobile contact bar ---- */
+  .contact-bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    display:grid;grid-template-columns:1fr 1fr;
+    background:var(--panel-2);border-top:1px solid var(--line-strong);
+  }
+  .contact-bar a{
+    padding:18px;text-align:center;text-decoration:none;
+    font-family:var(--mono);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--paper);display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .contact-bar a:first-child{border-right:1px solid var(--line-strong);color:var(--blue-bright);}
+
+  /* ---- responsive ---- */
+  @media(max-width:760px){
+    .split{grid-template-columns:1fr;gap:24px;}
+    .setlist-grid{grid-template-columns:1fr;}
+    .gallery{grid-template-columns:repeat(2,1fr);}
+    .gallery .tall{grid-row:auto;}
+    .spec-list{grid-template-columns:1fr;}
+    .downloads{grid-template-columns:1fr;}
+    section{padding:52px 0;}
+  }
+  @media(min-width:761px){
+    .contact-bar{display:none;}
+    body{padding-bottom:0;}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important;transition:none!important;}
+  }
+
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--blue-bright);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. HERO ============ -->
+<header class="hero">
+  <div class="hero-media">
+    <!-- TEMP placeholder footage — swap for real band video. Source: Mixkit "Audience at a concert" (mixkit.co/free-stock-video/audience-at-a-concert-4269), Mixkit Stock Video Free License (commercial use OK, no attribution required). -->
+    <video id="hero-video" class="hero-video" muted loop playsinline preload="auto">
+      <source src="media/hero-placeholder.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content wrap">
+    <h1 class="hero-name">NO <span class="sig">SIGNAL</span></h1>
+    <p class="hero-hook">High-energy rock covers that fill floors and keep them full. <em>[placeholder hook — one line]</em></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="tel:+61467504479">Call [Jason]</a>
+      <a class="btn btn-ghost" href="#reel">Watch us play</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 2. HIGHLIGHT REEL ============ -->
+<section id="reel">
+  <div class="wrap">
+    <div class="eyebrow">See &amp; hear the band</div>
+    <h2 class="section-title">The floor, full</h2>
+    <!-- TEMP thumbnail — swap for a real reel poster frame. Source: Pexels photo by Sebastian Ervi (pexels.com/photo/people-in-concert-1763075), Pexels License (commercial use OK, no attribution required). -->
+    <div class="slot video-slot" style="background:linear-gradient(rgba(5,4,9,.35),rgba(5,4,9,.88)),url('media/reel-thumbnail.jpg') center/cover no-repeat;">
+      <span class="tag fl">Floats over best audio</span>
+      <svg class="glyph" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="slot-label">Main reel — 60–90s</div>
+      <div class="slot-spec">Busiest sections, front-loaded. Best bit in first 5s. Lean on wide/crowd shots so our best polished audio can sit under it. Cut tight to 60s if it sags.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. WHO WE ARE ============ -->
+<section>
+  <div class="wrap split">
+    <div>
+      <div class="eyebrow">Who we are</div>
+      <h2 class="section-title">Four of us,<br>one loud room</h2>
+      <p class="lede">[Placeholder — two or three sentences on what you play and why a room responds to it. Keep it tight, this is scroll-down material, not a manifesto.]</p>
+      <p>[Second placeholder line — the "why". Covers that move a crowd, not a jukebox. Something with a bit of personality.]</p>
+    </div>
+    <div class="photo-frame photo-slot">
+      <img src="media/hero_band.jpg" alt="No Signal performing live on stage">
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. SETLIST ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">What we play</div>
+    <h2 class="section-title">Range that reads a room</h2>
+    <div class="setlist-grid">
+      <div class="set-col">
+        <h3>Get 'em up</h3>
+        <ul>
+          <li>TNT <span>· AC/DC</span></li>
+          <li>Rock n Roll All Nite <span>· Kiss</span></li>
+          <li>Whole Lotta Rosie <span>· AC/DC</span></li>
+          <li>Are You Gonna Be My Girl <span>· Jet</span></li>
+        </ul>
+      </div>
+      <div class="set-col">
+        <h3>Keep 'em there</h3>
+        <ul>
+          <li>Mustang Sally <span>· The Commitments</span></li>
+          <li>All Summer Long <span>· Kid Rock</span></li>
+          <li>Song 2 <span>· Blur</span></li>
+          <li>Billie Jean <span>· Michael Jackson</span></li>
+        </ul>
+      </div>
+      <div class="set-col">
+        <h3>Singalong / close</h3>
+        <ul>
+          <li>Khe Sanh <span>· Cold Chisel</span></li>
+          <li>Eye of the Tiger <span>· Survivor</span></li>
+          <li>Summer of '69 <span>· Bryan Adams</span></li>
+          <li>You Give Love A Bad Name <span>· Bon Jovi</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="placeholder-note">Full setlist available on request.</p>
+  </div>
+</section>
+
+<!-- ============ 5. GALLERY / THE LOOK ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The look</div>
+    <h2 class="section-title">On stage</h2>
+    <div class="gallery">
+      <div class="photo-frame photo-slot tall">
+        <img src="media/action.jpg" alt="No Signal — action shot on stage">
+      </div>
+      <div class="photo-frame photo-slot">
+        <img src="media/crowd.jpg" alt="Crowd reaction at a No Signal show">
+      </div>
+      <div class="photo-frame photo-slot">
+        <img src="media/singer.jpg" alt="No Signal singer performing at the mic">
+      </div>
+      <div class="photo-frame photo-slot wide">
+        <img src="media/full_band.jpg" alt="No Signal — full band on stage">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. LOGISTICS ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Easy to book</div>
+    <h2 class="section-title">No production headaches</h2>
+    <div class="spec-list">
+      <div class="spec-item"><div class="k">Band size</div><div class="v"><strong>4-piece</strong> [placeholder]</div></div>
+      <div class="spec-item"><div class="k">PA</div><div class="v">We supply our own <strong>full PA</strong></div></div>
+      <div class="spec-item"><div class="k">Public liability</div><div class="v"><strong>Insured</strong> · certificate on request</div></div>
+      <div class="spec-item"><div class="k">Space &amp; load-in</div><div class="v">Compact footprint, easy load-in [placeholder]</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. SOCIAL PROOF ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Rooms we've played</div>
+    <h2 class="section-title">Been there, packed it</h2>
+    <div class="venues">
+      <div class="venue-chip">Blue Pacific Hotel</div>
+      <div class="venue-chip">Bribie Beach Bar</div>
+      <div class="venue-chip">La Vera Pizza &amp; Bar</div>
+    </div>
+    <blockquote>
+      [Placeholder quote from a publican — one line, keep it under fifteen words. This does a lot of work.]
+      <cite>— [Name, Venue]</cite>
+    </blockquote>
+    <div class="follow-row">
+      <span class="follow-label">Follow along</span>
+      <a class="follow-link" href="https://www.facebook.com/profile.php?id=61578885463673" target="_blank" rel="noopener">Facebook</a>
+      <a class="follow-link" href="https://www.instagram.com/no_signal_bribie" target="_blank" rel="noopener">Instagram</a>
+      <span class="follow-link is-soon">YouTube <span class="soon-tag">coming soon</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. RATES ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Rates</div>
+    <div class="rates-box">
+      <div>
+        <div class="big">Let's talk</div>
+        <div class="sub">Contact for rates and availability — we price per venue and event. <em>[Or drop a figure here if you'd rather anchor it. Your call.]</em></div>
+      </div>
+      <a class="btn btn-primary" href="tel:+61467504479">Get a quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. CONTACT ============ -->
+<section>
+  <div class="wrap contact-final">
+    <div class="eyebrow" style="justify-content:center;">Book us</div>
+    <h2 class="section-title">Get No Signal in your room</h2>
+    <div class="cta-row" style="justify-content:center;">
+      <a class="btn btn-primary" href="tel:+61467504479">Call [Jason]</a>
+      <a class="btn btn-ghost" href="mailto:bookings@nosignalmusic.com">Email us</a>
+    </div>
+    <div class="contact-lines">
+      [Jason] · <a href="tel:+61467504479">0467 504 479</a><br>
+      <a href="mailto:bookings@nosignalmusic.com">bookings@nosignalmusic.com</a> · nosignalmusic.com
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. DOWNLOADS ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">For your poster</div>
+    <h2 class="section-title">Take what you need</h2>
+    <div class="downloads">
+      <a class="dl-card" href="#">
+        <svg class="glyph" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+        <div><div class="t">One-page EPK (PDF)</div><div class="d">Print or forward · [placeholder file]</div></div>
+      </a>
+      <a class="dl-card" href="#">
+        <svg class="glyph" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.6"/><path d="M3 17l5-4 4 3 3-2 6 5"/></svg>
+        <div><div class="t">Hi-res band photo</div><div class="d">For venue promo · [placeholder file]</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="mark">NO <span class="sig">SIGNAL</span></div>
+    <small>nosignalmusic.com/epk · skeleton draft · placeholder content</small>
+  </div>
+</footer>
+
+<!-- sticky mobile contact bar -->
+<nav class="contact-bar" aria-label="Quick contact">
+  <a href="tel:+61467504479">Call</a>
+  <a href="mailto:bookings@nosignalmusic.com">Email</a>
+</nav>
+
+<script>
+  var heroVideo = document.getElementById('hero-video');
+  if (heroVideo && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroVideo.play().catch(function(){});
+  }
+</script>
+
+</body>
+</html>
