@@ -115,6 +115,22 @@
   .tag.fl{background:rgba(102,85,255,.14);color:var(--blue-bright);border:1px solid rgba(102,85,255,.4);}
 
   .video-slot{aspect-ratio:16/9;}
+  .video-frame{position:relative;}
+  .video-play-overlay{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(5,4,9,.28);
+    cursor:pointer;border:none;padding:0;
+    transition:background .2s ease;
+  }
+  .video-play-overlay .glyph{
+    color:#fff;
+    filter:drop-shadow(0 0 14px var(--glow));
+    transition:transform .2s ease,color .2s ease;
+  }
+  .video-play-overlay:hover{background:rgba(5,4,9,.42);}
+  .video-play-overlay:hover .glyph{transform:scale(1.12);color:var(--blue-bright);}
+  .video-play-overlay.is-hidden{display:none;}
   .photo-slot{aspect-ratio:4/3;}
   .photo-frame{position:relative;border-radius:10px;overflow:hidden;background:var(--panel);}
   .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
@@ -328,9 +344,9 @@
   <div class="hero-scrim"></div>
   <div class="hero-content wrap">
     <h1 class="hero-name">NO <span class="sig">SIGNAL</span></h1>
-    <p class="hero-hook">High-energy rock covers that fill floors and keep them full. <em>[placeholder hook — one line]</em></p>
+    <p class="hero-hook">High-energy rock covers that fill floors and keep them full.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="tel:+61467504479">Call [Jason]</a>
+      <a class="btn btn-primary" href="tel:+61467504479">Call Jason</a>
       <a class="btn btn-ghost" href="#reel">Watch us play</a>
     </div>
   </div>
@@ -341,14 +357,16 @@
   <div class="wrap">
     <div class="eyebrow">See &amp; hear the band</div>
     <h2 class="section-title">The floor, full</h2>
-    <!-- TEMP thumbnail — swap for a real reel poster frame. Source: Pexels photo by Sebastian Ervi (pexels.com/photo/people-in-concert-1763075), Pexels License (commercial use OK, no attribution required). -->
-    <div class="slot video-slot" style="background:linear-gradient(rgba(5,4,9,.35),rgba(5,4,9,.88)),url('media/reel-thumbnail.jpg') center/cover no-repeat;">
-      <span class="tag fl">Floats over best audio</span>
-      <svg class="glyph" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
-        <circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
-      </svg>
-      <div class="slot-label">Main reel — 60–90s</div>
-      <div class="slot-spec">Busiest sections, front-loaded. Best bit in first 5s. Lean on wide/crowd shots so our best polished audio can sit under it. Cut tight to 60s if it sags.</div>
+    <div class="video-slot video-frame" style="border-radius:10px;overflow:hidden;background:var(--panel);">
+      <video id="reel-video" controls preload="metadata" poster="media/reel-thumbnail.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="media/NoSignal_reel.mp4" type="video/mp4">
+        Your browser doesn't support this video format.
+      </video>
+      <button type="button" id="reel-play-overlay" class="video-play-overlay" aria-label="Play video">
+        <svg class="glyph" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+          <circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
+        </svg>
+      </button>
     </div>
   </div>
 </section>
@@ -359,11 +377,11 @@
     <div>
       <div class="eyebrow">Who we are</div>
       <h2 class="section-title">Four of us,<br>one loud room</h2>
-      <p class="lede">[Placeholder — two or three sentences on what you play and why a room responds to it. Keep it tight, this is scroll-down material, not a manifesto.]</p>
-      <p>[Second placeholder line — the "why". Covers that move a crowd, not a jukebox. Something with a bit of personality.]</p>
+      <p class="lede">Heavy riffs, big hooks, no filler. We play rock that's built to be felt, not just heard.</p>
+      <p>Our goal every set: get the crowd singing, moving, and staying till the last song.</p>
     </div>
     <div class="photo-frame photo-slot">
-      <img src="media/hero_band.jpg" alt="No Signal performing live on stage">
+      <img src="media/full_band.jpg" alt="No Signal performing live on stage">
     </div>
   </div>
 </section>
@@ -422,7 +440,7 @@
         <img src="media/singer.jpg" alt="No Signal singer performing at the mic">
       </div>
       <div class="photo-frame photo-slot wide">
-        <img src="media/full_band.jpg" alt="No Signal — full band on stage">
+        <img src="media/blueys crowd2.jpg" alt="No Signal — full band on stage">
       </div>
     </div>
   </div>
@@ -434,10 +452,10 @@
     <div class="eyebrow">Easy to book</div>
     <h2 class="section-title">No production headaches</h2>
     <div class="spec-list">
-      <div class="spec-item"><div class="k">Band size</div><div class="v"><strong>4-piece</strong> [placeholder]</div></div>
-      <div class="spec-item"><div class="k">PA</div><div class="v">We supply our own <strong>full PA</strong></div></div>
+      <div class="spec-item"><div class="k">Band size</div><div class="v"><strong>4-piece. </strong>Bass, Guitars and Drums</div><br>What we play is what you hear</div>
+      <div class="spec-item"><div class="k">PA</div><div class="v">We can supply our own <strong>full PA</strong></div></div>
       <div class="spec-item"><div class="k">Public liability</div><div class="v"><strong>Insured</strong> · certificate on request</div></div>
-      <div class="spec-item"><div class="k">Space &amp; load-in</div><div class="v">Compact footprint, easy load-in [placeholder]</div></div>
+      <div class="spec-item"><div class="k">Space &amp; load-in</div><div class="v">Compact footprint, easy load-in</div></div>
     </div>
   </div>
 </section>
@@ -453,8 +471,8 @@
       <div class="venue-chip">La Vera Pizza &amp; Bar</div>
     </div>
     <blockquote>
-      [Placeholder quote from a publican — one line, keep it under fifteen words. This does a lot of work.]
-      <cite>— [Name, Venue]</cite>
+      Amazing entertainers! Always Bring a crowd
+      <cite>— Jo Fraser, Blue Pacific Hotel</cite>
     </blockquote>
     <div class="follow-row">
       <span class="follow-label">Follow along</span>
@@ -472,7 +490,7 @@
     <div class="rates-box">
       <div>
         <div class="big">Let's talk</div>
-        <div class="sub">Contact for rates and availability — we price per venue and event. <em>[Or drop a figure here if you'd rather anchor it. Your call.]</em></div>
+        <div class="sub">Contact for rates and availability — we price per venue and event.</em></div>
       </div>
       <a class="btn btn-primary" href="tel:+61467504479">Get a quote</a>
     </div>
@@ -489,7 +507,7 @@
       <a class="btn btn-ghost" href="mailto:bookings@nosignalmusic.com">Email us</a>
     </div>
     <div class="contact-lines">
-      [Jason] · <a href="tel:+61467504479">0467 504 479</a><br>
+      <a href="tel:+61467504479">0467 504 479</a><br>
       <a href="mailto:bookings@nosignalmusic.com">bookings@nosignalmusic.com</a> · nosignalmusic.com
     </div>
   </div>
@@ -501,13 +519,13 @@
     <div class="eyebrow">For your poster</div>
     <h2 class="section-title">Take what you need</h2>
     <div class="downloads">
-      <a class="dl-card" href="#">
+      <a class="dl-card" href="media/No-Signal-EPK.pdf" download="No Signal EPK.pdf">
         <svg class="glyph" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
-        <div><div class="t">One-page EPK (PDF)</div><div class="d">Print or forward · [placeholder file]</div></div>
+        <div><div class="t">One-page EPK (PDF)</div><div class="d">Print or forward</div></div>
       </a>
-      <a class="dl-card" href="#">
+      <a class="dl-card" href="media/No%20Signal%20Banner.jpg" download="No Signal Banner.jpg">
         <svg class="glyph" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.6"/><path d="M3 17l5-4 4 3 3-2 6 5"/></svg>
-        <div><div class="t">Hi-res band photo</div><div class="d">For venue promo · [placeholder file]</div></div>
+        <div><div class="t">Hi-res band photo</div><div class="d">For venue promo</div></div>
       </a>
     </div>
   </div>
@@ -516,7 +534,7 @@
 <footer>
   <div class="wrap">
     <div class="mark">NO <span class="sig">SIGNAL</span></div>
-    <small>nosignalmusic.com/epk · skeleton draft · placeholder content</small>
+    <small>nosignalmusic.com/epk</small>
   </div>
 </footer>
 
@@ -530,6 +548,15 @@
   var heroVideo = document.getElementById('hero-video');
   if (heroVideo && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     heroVideo.play().catch(function(){});
+  }
+
+  var reelVideo = document.getElementById('reel-video');
+  var reelOverlay = document.getElementById('reel-play-overlay');
+  if (reelVideo && reelOverlay) {
+    reelOverlay.addEventListener('click', function(){
+      reelOverlay.classList.add('is-hidden');
+      reelVideo.play().catch(function(){});
+    });
   }
 </script>
 
