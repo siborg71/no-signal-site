@@ -88,32 +88,16 @@
         <thead>
           <tr>
             <th>DATE</th>
+            <th class="col-time">TIME</th>
             <th>VENUE</th>
             <th>CITY</th>
-            <th></th>
+            <th class="col-cost">COST</th>
+            <th class="col-notes">NOTES</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>15 Aug</td>
-            <td>Blue Pacific Hotel</td>
-            <td>Woorim</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>03 Oct</td>
-            <td>Blue Pacific Hotel</td>
-            <td>Woorim</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>22 Nov</td>
-            <td>Blue Pacific Hotel</td>
-            <td>Woorim</td>
-            <td></td>
-          </tr>
-        </tbody>
+        <tbody id="gigs-tbody"></tbody>
       </table>
+      <button class="shows-more-btn" id="shows-more-btn" onclick="expandShows()"></button>
     </div>
   </section>
 
